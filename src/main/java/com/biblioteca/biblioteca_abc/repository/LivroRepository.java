@@ -33,12 +33,12 @@ public class LivroRepository {
         }
     }
 
-    public Livro findById(Integer id){
-        for(Livro livro : livros){
-            if(livro.getId().equals(id)){
-                return livro;
+    public Livro findById(Integer id){ //Metodo para encontrar algum objeto com o id especificado
+        for(Livro livro : livros){ //Percorre todos os livros existentes na lista
+            if(livro.getId().equals(id)){ //Compara o id passado com o id que tem na lista
+                return livro; //Retorna o livro com o id passado
             }
         }
-        return null;
+        return null; //Se não encontrar, retorna nulo
     }
 }
