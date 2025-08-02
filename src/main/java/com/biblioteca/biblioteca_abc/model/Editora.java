@@ -2,6 +2,8 @@ package com.biblioteca.biblioteca_abc.model;
 
 import lombok.Data;
 
+import java.util.List;
+
 @Data
 public class Editora {
     //Atributos
