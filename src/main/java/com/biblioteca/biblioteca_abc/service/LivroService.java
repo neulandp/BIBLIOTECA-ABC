@@ -23,4 +23,8 @@ public class LivroService {
     public void delete(Integer id){
         livroRepository.delete(id);
     }
+
+    public Livro findById(Integer id){
+        return livroRepository.findById(id);
+    }
 }

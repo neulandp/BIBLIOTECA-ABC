@@ -44,4 +44,13 @@ public class LivroController {
             return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
         }
     }
+
+    @GetMapping("/findById/{id}")
+    public ResponseEntity<Livro> findById(@PathVariable Integer id) {
+        Livro result = livroService.findById(id);
+        if(result == null){
+            return new ResponseEntity<>(null, HttpStatus.NOT_FOUND); // ou BAD_REQUEST, se preferir
+        }
+        return new ResponseEntity<>(result, HttpStatus.OK);
+    }
 }
