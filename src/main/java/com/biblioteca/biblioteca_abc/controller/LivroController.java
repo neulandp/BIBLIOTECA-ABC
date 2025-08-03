@@ -53,4 +53,14 @@ public class LivroController {
         }
         return new ResponseEntity<>(result, HttpStatus.OK);
     }
+
+    @PutMapping("/update/{id}")
+    public ResponseEntity<Livro> update(@PathVariable Integer id, @RequestBody Livro livro){
+        try {
+            var result = livroService.update(id, livro);
+            return new ResponseEntity<>(result, HttpStatus.OK);
+        } catch (Exception ex){
+            return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
+        }
+    }
 }

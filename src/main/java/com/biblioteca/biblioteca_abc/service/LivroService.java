@@ -27,4 +27,8 @@ public class LivroService {
     public Livro findById(Integer id){
         return livroRepository.findById(id);
     }
+
+    public Livro update(Integer id, Livro novoLivro){
+        return livroRepository.update(id, novoLivro);
+    }
 }

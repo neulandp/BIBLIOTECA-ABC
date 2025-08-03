@@ -27,4 +27,8 @@ public class AutorService {
     public Autor findById(Integer id){
         return autorRepository.findById(id);
     }
+
+    public Autor update(Integer id, Autor novoautor){
+        return autorRepository.update(id, novoautor);
+    }
 }

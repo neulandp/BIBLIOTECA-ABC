@@ -40,4 +40,16 @@ public class AutorRepository {
         }
         return null;
     }
+
+    public Autor update(Integer id, Autor novoAutor){
+        for(Autor autor : autores){
+            if(autor.getId().equals(id)){
+                autor.setNome(novoAutor.getNome());
+                autor.setCpf(novoAutor.getCpf());
+                autor.setIdade(novoAutor.getIdade());
+                return autor;
+            }
+        }
+        return null;
+    }
 }

@@ -41,4 +41,18 @@ public class LivroRepository {
         }
         return null; //Se não encontrar, retorna nulo
     }
+
+    public Livro update(Integer id, Livro novoLivro){
+        for(Livro livro : livros){
+            if(livro.getId().equals(id)){
+                livro.setIssn(novoLivro.getIssn());
+                livro.setTitulo(novoLivro.getTitulo());
+                livro.setSinopse(novoLivro.getSinopse());
+                livro.setAno(novoLivro.getAno());
+                livro.setNumPag(novoLivro.getNumPag());
+                return livro;
+            }
+        }
+        return null;
+    }
 }

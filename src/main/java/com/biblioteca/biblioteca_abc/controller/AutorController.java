@@ -54,4 +54,14 @@ public class AutorController {
             }
             return new ResponseEntity<>(result, HttpStatus.OK);
     }
+
+    @PutMapping("/update/{id}")
+    public ResponseEntity<Autor> update(@PathVariable Integer id, @RequestBody Autor autor){
+        try {
+            var result = autorRepository.update(id, autor);
+            return new ResponseEntity<>(result, HttpStatus.OK);
+        } catch (Exception ex){
+            return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
+        }
+    }
 }
