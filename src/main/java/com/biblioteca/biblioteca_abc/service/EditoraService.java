@@ -29,4 +29,8 @@ public class EditoraService {
     public Editora findById(Integer id){
         return editoraRepository.findById(id);
     }
+
+    public Editora update(Integer id, Editora novaEditora){
+        return editoraRepository.update(id, novaEditora);
+    }
 }

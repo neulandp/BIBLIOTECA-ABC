@@ -1,6 +1,7 @@
 package com.biblioteca.biblioteca_abc.repository;
 
 import com.biblioteca.biblioteca_abc.model.Biblioteca;
+import jakarta.annotation.PostConstruct;
 import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
@@ -8,19 +9,37 @@ import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
 
 @Repository
-public class BibliotecaRepository {
-    private AtomicInteger atomic = new AtomicInteger(3);
-    private final List<Biblioteca> bibliotecas = new ArrayList<>();
+public class BibliotecaRepository  {
 
-    public Biblioteca save(Biblioteca biblioteca){
-        atomic.incrementAndGet();
-        biblioteca.setId(atomic.get());
-        bibliotecas.add(biblioteca);
-        return biblioteca;
+    private final List<Biblioteca> bibliotecas = new ArrayList<>();
+    private AtomicInteger atomicInteger = new AtomicInteger(1);
+
+    public List<Biblioteca> findAll(){
+        return bibliotecas;
     }
 
-    public List<Biblioteca> listAll(){
-        return bibliotecas;
+    public Biblioteca findById(Integer id){
+        for(Biblioteca biblioteca : bibliotecas){
+            if(biblioteca.getId().equals(id)){
+                return  biblioteca;
+            }
+        }
+        return null;
+    }
+
+    @PostConstruct
+    public void init(){
+        Biblioteca biblioteca = new Biblioteca();
+        biblioteca.setId(1);
+        biblioteca.setNome("Debs");
+        biblioteca.setTelefone("45999947703");
+    }
+
+    public Biblioteca save(Biblioteca biblioteca){
+        atomicInteger.incrementAndGet();
+        biblioteca.setId((atomicInteger.get()));
+        bibliotecas.add(biblioteca);
+        return biblioteca;
     }
 
     public void delete(Integer id){
@@ -31,4 +50,16 @@ public class BibliotecaRepository {
             }
         }
     }
+
+    public Biblioteca update(Integer id, Biblioteca novaBiblioteca) {
+        for (Biblioteca biblioteca : bibliotecas) {
+            if (biblioteca.getId().equals(id)) {
+                biblioteca.setNome(novaBiblioteca.getNome());
+                biblioteca.setTelefone(novaBiblioteca.getTelefone());
+                return biblioteca;
+            }
+        }
+        return null;
+    }
+
 }

@@ -13,6 +13,7 @@ import java.util.List;
 @RequiredArgsConstructor
 @RequestMapping("/api/editora")
 public class EditoraController {
+
     private final EditoraService editoraService;
 
     @PostMapping("/save")
@@ -47,10 +48,21 @@ public class EditoraController {
 
     @GetMapping("/findById/{id}")
     public ResponseEntity<Editora> findById(@PathVariable Integer id){
-        Editora result = editoraService.findById(id);
-            if(result == null){
-                return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
-            }
+        try {
+            var result = editoraService.findById(id);
             return new ResponseEntity<>(result, HttpStatus.OK);
+        } catch (Exception ex){
+            return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
+        }
+    }
+
+    @PutMapping("/update/{id}")
+    public ResponseEntity<Editora> update(@PathVariable Integer id, @RequestBody Editora editora){
+        try {
+            var result = editoraService.update(id,editora);
+            return new ResponseEntity<>(result, HttpStatus.OK);
+        } catch (Exception ex){
+            return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
+        }
     }
 }
