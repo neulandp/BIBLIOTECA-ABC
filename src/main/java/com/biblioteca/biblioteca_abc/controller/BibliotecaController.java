@@ -32,6 +32,9 @@ public class BibliotecaController {
         public ResponseEntity<Biblioteca> findByid(@PathVariable Integer id) {
             try {
                 Biblioteca result = bibliotecaService.findById(id);
+                if (result == null) {
+                    return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
+                }
                 return new ResponseEntity<>(result, HttpStatus.OK);
             } catch (Exception ex) {
                 return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);

@@ -50,6 +50,9 @@ public class EditoraController {
     public ResponseEntity<Editora> findById(@PathVariable Integer id){
         try {
             var result = editoraService.findById(id);
+            if (result == null) {
+                return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
+            }
             return new ResponseEntity<>(result, HttpStatus.OK);
         } catch (Exception ex){
             return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
