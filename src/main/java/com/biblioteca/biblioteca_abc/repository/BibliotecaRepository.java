@@ -27,7 +27,7 @@ public class BibliotecaRepository  {
         return null;
     }
 
-    @PostConstruct
+    @PostConstruct //Executa esse metodo de forma automática e adiciona o objeto abaixo
     public void init(){
         Biblioteca biblioteca = new Biblioteca();
         biblioteca.setId(1);
