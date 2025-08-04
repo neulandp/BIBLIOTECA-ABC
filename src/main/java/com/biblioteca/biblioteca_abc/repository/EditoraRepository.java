@@ -1,6 +1,5 @@
 package com.biblioteca.biblioteca_abc.repository;
 
-import com.biblioteca.biblioteca_abc.model.Biblioteca;
 import com.biblioteca.biblioteca_abc.model.Editora;
 import org.springframework.stereotype.Repository;
 

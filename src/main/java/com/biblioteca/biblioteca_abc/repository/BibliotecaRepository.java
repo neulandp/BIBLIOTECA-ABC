@@ -31,8 +31,8 @@ public class BibliotecaRepository  {
     public void init(){
         Biblioteca biblioteca = new Biblioteca();
         biblioteca.setId(1);
-        biblioteca.setNome("Debs");
-        biblioteca.setTelefone("45999947703");
+        biblioteca.setNome("Debora");
+        biblioteca.setTelefone("(45) 99994-7703");
     }
 
     public Biblioteca save(Biblioteca biblioteca){

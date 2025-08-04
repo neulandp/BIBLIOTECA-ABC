@@ -9,58 +9,58 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@RestController
-@RequiredArgsConstructor
-@RequestMapping("/api/livro")
+@RestController //Responde a requisições HTTP
+@RequiredArgsConstructor //Cria construtor automático
+@RequestMapping("/api/livro") //Define o prefixo da rota
 public class LivroController {
     private final LivroService livroService;
 
     @PostMapping("/save")
-    public ResponseEntity<Livro>save(@RequestBody Livro livro){
+    public ResponseEntity<Livro>save(@RequestBody Livro livro){ //Pega o JSON enviado no corpo da requisição e converte num objeto Livro
         try {
-            var result = livroService.save(livro);
-            return new ResponseEntity<>(result,HttpStatus.CREATED);
+            var result = livroService.save(livro); //Chama o service para salvar
+            return new ResponseEntity<>(result,HttpStatus.CREATED); //Se der certo
         }catch (Exception ex){
-            return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST); //Se tiver erro
         }
     }
 
     @GetMapping("/listAll")
     public ResponseEntity<List<Livro>>listAll(){
         try {
-            var result = livroService.listAll();
-            return new ResponseEntity<>(result, HttpStatus.OK);
+            var result = livroService.listAll(); //Retorna todos os livros
+            return new ResponseEntity<>(result, HttpStatus.OK); //Se der certo, mostra a lista de livros
         } catch (Exception ex){
-            return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST); //Se der erro
         }
     }
 
     @DeleteMapping("/delete/{id}")
-    public ResponseEntity<?>delete(@PathVariable Integer id){
+    public ResponseEntity<?>delete(@PathVariable Integer id){ //PathVariable pega o id passado na URL
         try {
             livroService.delete(id);
-            return new ResponseEntity<>(null, HttpStatus.OK);
+            return new ResponseEntity<>(null, HttpStatus.OK); //Se der certo e deletar
         } catch (Exception ex){
-            return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST); //Se der erro
         }
     }
 
     @GetMapping("/findById/{id}")
-    public ResponseEntity<Livro> findById(@PathVariable Integer id) {
+    public ResponseEntity<Livro> findById(@PathVariable Integer id) { //Pega o id passado na URL
         Livro result = livroService.findById(id);
         if(result == null){
-            return new ResponseEntity<>(null, HttpStatus.NOT_FOUND); // ou BAD_REQUEST, se preferir
+            return new ResponseEntity<>(null, HttpStatus.NOT_FOUND); //Se não existir
         }
-        return new ResponseEntity<>(result, HttpStatus.OK);
+        return new ResponseEntity<>(result, HttpStatus.OK); //Retorna o livro se achar
     }
 
     @PutMapping("/update/{id}")
-    public ResponseEntity<Livro> update(@PathVariable Integer id, @RequestBody Livro livro){
+    public ResponseEntity<Livro> update(@PathVariable Integer id, @RequestBody Livro livro){ //Pega o id passado na URL e o novo conteúdo para o livro
         try {
             var result = livroService.update(id, livro);
-            return new ResponseEntity<>(result, HttpStatus.OK);
+            return new ResponseEntity<>(result, HttpStatus.OK); //Retorna com o livro atualizado
         } catch (Exception ex){
-            return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST); //Se der erro
         }
     }
 }

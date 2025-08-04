@@ -2,7 +2,7 @@ package com.biblioteca.biblioteca_abc.model;
 
 import lombok.Data;
 
-@Data
+@Data //Gera vários metodos automaticamente, como getter, setter, construtor
 public class Livro {
     //Atributos
     private Integer id;

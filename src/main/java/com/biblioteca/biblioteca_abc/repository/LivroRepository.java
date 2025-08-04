@@ -42,17 +42,17 @@ public class LivroRepository {
         return null; //Se não encontrar, retorna nulo
     }
 
-    public Livro update(Integer id, Livro novoLivro){
-        for(Livro livro : livros){
-            if(livro.getId().equals(id)){
-                livro.setIssn(novoLivro.getIssn());
+    public Livro update(Integer id, Livro novoLivro){ //Metodo para atualizar algum livro existente
+        for(Livro livro : livros){ //Percorre a lista de livros adicionados
+            if(livro.getId().equals(id)){ //Compara o id passado com o id que tem na lista
+                livro.setIssn(novoLivro.getIssn()); //Atualiza todos os atributos
                 livro.setTitulo(novoLivro.getTitulo());
                 livro.setSinopse(novoLivro.getSinopse());
                 livro.setAno(novoLivro.getAno());
                 livro.setNumPag(novoLivro.getNumPag());
-                return livro;
+                return livro; //Retorna o livro atualizado
             }
         }
-        return null;
+        return null; //Encerra
     }
 }
