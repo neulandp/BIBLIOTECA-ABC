@@ -20,7 +20,7 @@ public class EditoraController {
     public ResponseEntity<Editora> save(@RequestBody Editora editora){
         try {
             var result = editoraService.save(editora);
-            return new ResponseEntity<>(result, HttpStatus.CREATED);
+            return new ResponseEntity<>(result,HttpStatus.CREATED); //Se der certo e salvar
         }catch (Exception ex){
             return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
         }
@@ -39,8 +39,11 @@ public class EditoraController {
     @DeleteMapping("/delete/{id}")
     public ResponseEntity<?> delete(@PathVariable Integer id){
         try {
-            editoraService.delete(id);
-            return new ResponseEntity<>(null, HttpStatus.OK);
+            var result = editoraService.delete(id);
+            if (result == null) {
+                return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
+            }
+            return new ResponseEntity<>(null,HttpStatus.OK);
         } catch (Exception ex){
             return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
         }
@@ -63,6 +66,9 @@ public class EditoraController {
     public ResponseEntity<Editora> update(@PathVariable Integer id, @RequestBody Editora editora){
         try {
             var result = editoraService.update(id,editora);
+            if (result == null) {
+                return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
+            }
             return new ResponseEntity<>(result, HttpStatus.OK);
         } catch (Exception ex){
             return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);

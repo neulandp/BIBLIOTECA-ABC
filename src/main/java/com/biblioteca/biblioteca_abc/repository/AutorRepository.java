@@ -9,7 +9,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 
 @Repository
 public class AutorRepository {
-    private AtomicInteger atomic = new AtomicInteger(3);
+    private AtomicInteger atomic = new AtomicInteger(0);
     private final List<Autor> autores = new ArrayList<>();
 
     public Autor save(Autor autor){
@@ -23,13 +23,14 @@ public class AutorRepository {
         return autores;
     }
 
-    public void delete(Integer id){
+    public Autor delete(Integer id){
         for(Autor autor : autores){
             if(autor.getId().equals(id)){
                 autores.remove(autor);
-                return;
+                return autor;
             }
         }
+        return null;
     }
 
     public Autor findById(Integer id){
@@ -44,9 +45,15 @@ public class AutorRepository {
     public Autor update(Integer id, Autor novoAutor){
         for(Autor autor : autores){
             if(autor.getId().equals(id)){
-                autor.setNome(novoAutor.getNome());
-                autor.setCpf(novoAutor.getCpf());
-                autor.setIdade(novoAutor.getIdade());
+                if(novoAutor.getNome() != null && !novoAutor.getNome().isBlank()) {
+                    autor.setNome(novoAutor.getNome());
+                }
+                if(novoAutor.getCpf() != null && !novoAutor.getCpf().isBlank()) {
+                    autor.setCpf(novoAutor.getCpf());
+                }
+                if(novoAutor.getIdade() != null) {
+                    autor.setIdade(novoAutor.getIdade());
+                }
                 return autor;
             }
         }

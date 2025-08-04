@@ -30,8 +30,8 @@ public class BibliotecaService {
         return bibliotecaRepository.update(id,biblioteca);
     }
 
-    public void delete(Integer id){
-        bibliotecaRepository.delete(id);
+    public Biblioteca delete(Integer id){
+        return bibliotecaRepository.delete(id);
     }
 
 }

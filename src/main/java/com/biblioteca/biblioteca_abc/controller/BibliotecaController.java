@@ -45,7 +45,7 @@ public class BibliotecaController {
         public ResponseEntity<Biblioteca> save(@RequestBody Biblioteca biblioteca) {
             try {
                 var result = bibliotecaService.save(biblioteca);
-                return new ResponseEntity<>(result, HttpStatus.CREATED);
+                return new ResponseEntity<>(result,HttpStatus.CREATED); //Se der certo e salvar
             } catch (Exception ex) {
                 return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
 
@@ -54,20 +54,28 @@ public class BibliotecaController {
 
         // PUT - ATUALIZAR
         @PutMapping("/update/{id}")
-        public ResponseEntity<String> update(@PathVariable Integer id, @RequestBody Biblioteca biblioteca){
+        public ResponseEntity<Biblioteca> update(@PathVariable Integer id, @RequestBody Biblioteca biblioteca){
             try{
                 var result = bibliotecaService.update(id,biblioteca);
-                return new ResponseEntity(result,HttpStatus.OK);
+
+                if (result == null) {
+                    return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
+                }
+                return new ResponseEntity<>(result,HttpStatus.OK);
+
             } catch (Exception ex) {
-                return  new ResponseEntity(null,HttpStatus.BAD_REQUEST);
+                return  new ResponseEntity<>(null,HttpStatus.BAD_REQUEST);
             }
         }
 
         @DeleteMapping("/delete/{id}")
-        public ResponseEntity<?> delete(@PathVariable Integer id) {
+        public ResponseEntity<Biblioteca> delete(@PathVariable Integer id) {
             try {
-                bibliotecaService.delete(id);
-                return new ResponseEntity<>(null, HttpStatus.NO_CONTENT);
+               var result =  bibliotecaService.delete(id);
+                if (result == null) {
+                    return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
+                }
+                return new ResponseEntity<>(null,HttpStatus.OK);
             } catch (Exception ex) {
                 return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
 

@@ -22,8 +22,8 @@ public class EditoraService {
         return editoraRepository.listAll();
     }
 
-    public void delete(Integer id){
-        editoraRepository.delete(id);
+    public Editora delete(Integer id){
+        return editoraRepository.delete(id);
     }
 
     public Editora findById(Integer id){

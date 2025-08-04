@@ -24,13 +24,14 @@ public class EditoraRepository {
         return editoras;
     }
 
-    public void delete(Integer id){
+    public Editora delete(Integer id){
         for(Editora editora : editoras){
             if(editora.getId().equals(id)){
                 editoras.remove(editora);
-                return;
+                return editora;
             }
         }
+        return null;
     }
 
     public Editora findById(Integer id){
@@ -45,9 +46,12 @@ public class EditoraRepository {
     public Editora update(Integer id, Editora novaEditora) {
         for (Editora editora : editoras) {
             if (editora.getId().equals(id)) {
-                editora.setNome(novaEditora.getNome());
-                editora.setEndereco(novaEditora.getEndereco());
-                editora.setTelefone(novaEditora.getTelefone());
+                if(novaEditora.getNome() != null && !novaEditora.getNome().isBlank())
+                    editora.setNome(novaEditora.getNome());
+                if(novaEditora.getEndereco() != null && !novaEditora.getEndereco().isBlank())
+                    editora.setEndereco(novaEditora.getEndereco());
+                if(novaEditora.getTelefone() != null && !novaEditora.getTelefone().isBlank())
+                    editora.setTelefone(novaEditora.getTelefone());
                 return editora;
             }
         }

@@ -20,8 +20,8 @@ public class LivroService { //Classe de serviço, onde tem a regra de negócio
         return livroRepository.listAll();
     }
 
-    public void delete(Integer id){ //Deletar livros
-        livroRepository.delete(id);
+    public Livro delete(Integer id){ //Deletar livros
+        return livroRepository.delete(id);
     }
 
     public Livro findById(Integer id){ //Encontrar livros pelo id

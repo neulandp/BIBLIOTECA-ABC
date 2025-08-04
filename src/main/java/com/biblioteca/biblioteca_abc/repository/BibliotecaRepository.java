@@ -12,7 +12,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 public class BibliotecaRepository  {
 
     private final List<Biblioteca> bibliotecas = new ArrayList<>();
-    private AtomicInteger atomicInteger = new AtomicInteger(1);
+    private AtomicInteger atomicInteger = new AtomicInteger(0);
 
     public List<Biblioteca> findAll(){
         return bibliotecas;
@@ -27,14 +27,6 @@ public class BibliotecaRepository  {
         return null;
     }
 
-    @PostConstruct //Executa esse metodo de forma automática e adiciona o objeto abaixo
-    public void init(){
-        Biblioteca biblioteca = new Biblioteca();
-        biblioteca.setId(1);
-        biblioteca.setNome("Debora");
-        biblioteca.setTelefone("(45) 99994-7703");
-    }
-
     public Biblioteca save(Biblioteca biblioteca){
         atomicInteger.incrementAndGet();
         biblioteca.setId((atomicInteger.get()));
@@ -42,20 +34,25 @@ public class BibliotecaRepository  {
         return biblioteca;
     }
 
-    public void delete(Integer id){
+    public Biblioteca delete(Integer id){
         for(Biblioteca biblioteca : bibliotecas){
             if(biblioteca.getId().equals(id)){
                 bibliotecas.remove(biblioteca);
-                return;
+                return biblioteca;
             }
         }
+        return null;
     }
 
     public Biblioteca update(Integer id, Biblioteca novaBiblioteca) {
         for (Biblioteca biblioteca : bibliotecas) {
             if (biblioteca.getId().equals(id)) {
-                biblioteca.setNome(novaBiblioteca.getNome());
-                biblioteca.setTelefone(novaBiblioteca.getTelefone());
+                if(novaBiblioteca.getNome() != null && !novaBiblioteca.getNome().isBlank()) {
+                    biblioteca.setNome(novaBiblioteca.getNome());
+                }
+                if(novaBiblioteca.getTelefone() != null && !novaBiblioteca.getTelefone().isBlank()) {
+                    biblioteca.setTelefone(novaBiblioteca.getTelefone());
+                }
                 return biblioteca;
             }
         }

@@ -20,8 +20,8 @@ public class AutorService {
         return autorRepository.listAll();
     }
 
-    public void delete(Integer id){
-        autorRepository.delete(id);
+        public Autor delete(Integer id){
+        return autorRepository.delete(id);
     }
 
     public Autor findById(Integer id){

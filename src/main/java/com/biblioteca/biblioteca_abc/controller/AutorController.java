@@ -37,10 +37,13 @@ public class AutorController {
     }
 
     @DeleteMapping("/delete/{id}")
-    public ResponseEntity<?> delete(@PathVariable Integer id){
+    public ResponseEntity<Autor> delete(@PathVariable Integer id){
         try {
-            autorRepository.delete(id);
-            return new ResponseEntity<>(null, HttpStatus.OK);
+            var result = autorRepository.delete(id);
+            if (result == null) {
+                return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
+            }
+            return new ResponseEntity<>(null,HttpStatus.OK);
         } catch (Exception ex){
             return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
         }
@@ -48,17 +51,24 @@ public class AutorController {
 
     @GetMapping("/findById/{id}")
     public ResponseEntity<Autor> findByid(@PathVariable Integer id){
-        Autor result = autorRepository.findById(id);
-            if(result == null){
+        try {
+            var result = autorRepository.findById(id);
+            if (result == null) {
                 return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
             }
             return new ResponseEntity<>(result, HttpStatus.OK);
+        } catch (Exception ex){
+            return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
+        }
     }
 
     @PutMapping("/update/{id}")
     public ResponseEntity<Autor> update(@PathVariable Integer id, @RequestBody Autor autor){
         try {
             var result = autorRepository.update(id, autor);
+            if(result == null){
+                return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
+            }
             return new ResponseEntity<>(result, HttpStatus.OK);
         } catch (Exception ex){
             return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);

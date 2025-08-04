@@ -10,7 +10,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 @Repository //Para entender que esse é nosso repositório que vai servir
 //como se fosse um banco de dados
 public class LivroRepository {
-    private AtomicInteger atomic = new AtomicInteger(2); //Variável para gerar id´s de forma automática
+    private AtomicInteger atomic = new AtomicInteger(0); //Variável para gerar id´s de forma automática
     private final List<Livro> livros = new ArrayList<>(); //Cria uma lista de livros
 
     public Livro save(Livro livro){ //Recebe o "Livro", pois é um modelo já pronto
@@ -24,13 +24,14 @@ public class LivroRepository {
         return livros; //Retorna todos os livros
     }
 
-    public void delete(Integer id){ //Metodo para deletar os objetos
+    public Livro delete(Integer id){ //Metodo para deletar os objetos
         for(Livro livro : livros){ //Percorre todos os livros que existe dentro da lista
             if(livro.getId().equals(id)){ //Compara o id passado com o id que tem na lista
                 livros.remove(livro); //Remove o livro com o id passado
-                return; //Encerra o metodo
+                return livro; //Encerra o metodo
             }
         }
+        return null;
     }
 
     public Livro findById(Integer id){ //Metodo para encontrar algum objeto com o id especificado
@@ -44,12 +45,22 @@ public class LivroRepository {
 
     public Livro update(Integer id, Livro novoLivro){ //Metodo para atualizar algum livro existente
         for(Livro livro : livros){ //Percorre a lista de livros adicionados
-            if(livro.getId().equals(id)){ //Compara o id passado com o id que tem na lista
+            if(novoLivro.getId().equals(id)){ //Compara o id passado com o id que tem na lista
+                if(novoLivro.getIssn() != null && !novoLivro.getIssn().isBlank()){
                 livro.setIssn(novoLivro.getIssn()); //Atualiza todos os atributos
-                livro.setTitulo(novoLivro.getTitulo());
-                livro.setSinopse(novoLivro.getSinopse());
-                livro.setAno(novoLivro.getAno());
-                livro.setNumPag(novoLivro.getNumPag());
+                }
+                if(novoLivro.getTitulo() != null && !novoLivro.getTitulo().isBlank()) {
+                    livro.setTitulo(novoLivro.getTitulo());
+                }
+                if(novoLivro.getSinopse() != null && !novoLivro.getSinopse().isBlank()) {
+                    livro.setSinopse(novoLivro.getSinopse());
+                }
+                if(novoLivro.getAno() != null) {
+                    livro.setAno(novoLivro.getAno());
+                }
+                if(novoLivro.getNumPag() != null) {
+                    livro.setNumPag(novoLivro.getNumPag());
+                }
                 return livro; //Retorna o livro atualizado
             }
         }
